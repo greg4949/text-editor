@@ -24,7 +24,7 @@ module.exports = () => {
         swDest: 'src-sw.js',
       }),
 
-      // create manifest.json file.
+      // create manifest.json file.c
       new WebpackPwaManifest({
         fingerprints: false,
         inject: true,
