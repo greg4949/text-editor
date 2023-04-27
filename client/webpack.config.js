@@ -1,7 +1,8 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
-const path = require('path');
 const { InjectManifest } = require('workbox-webpack-plugin');
+const path = require('path');
+
 
 
 
@@ -16,7 +17,16 @@ module.exports = () => {
       filename: '[name].bundle.js',
       path: path.resolve(__dirname, 'dist'),
     },
+    devServer: {
+      // use the webpack-dev-server in combination with the hot module replacement API.
+      hot: 'only',
+    },
     plugins: [
+      //generate html file and inject bundles
+      new HtmlWebpackPlugin({
+        template: './index.html',
+        title: 'JATE',
+      }),
 
        //  custom service worker
        new InjectManifest({
@@ -24,7 +34,7 @@ module.exports = () => {
         swDest: 'src-sw.js',
       }),
 
-      // create manifest.json file.c
+      // create manifest.json file.
       new WebpackPwaManifest({
         fingerprints: false,
         inject: true,

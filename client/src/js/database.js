@@ -15,17 +15,12 @@ const initdb = async () =>
 // Put method to accept content and add to database.
 export const putDb = async (content) => {
   console.log('PUT to the database');
-  // connect to database and desired schema version
   const jateDb = await openDB('jate', 1);
-   // new db transaction and db privliges
   const tx = jateDb.transaction('jate', 'readwrite');
-  // Open  object store
   const store = tx.objectStore('jate');
-  //Add content to db
-  const request = store.put({ id: id, jate: content });
-  //confirmation request
+  const request = store.put({ jate: content });
   const result = await request;
-  console.log('🚀 - data saved to the database', result);
+  console.log('🚀 - data saved to the database', result);   
 };
 
 
@@ -33,24 +28,13 @@ export const putDb = async (content) => {
 // method to get all content from DB
 export const getDb = async () => {
   console.log('Get from jate');
-
-    // connect to database and desired schema version
-    const jateDb = await openDB('jate', 1);
-
-    // new db transaction and db privliges
-    const tx = jateDb    
-    .transaction('jate', 'readonly');
-  
-    // Open  object store
-    const store = tx.objectStore('jate');
-  
-    // retrieve all data from db
-    const request = store.getAll();
-  
-    // request  confirmation
-    const result = await request;
-    console.log('result.value', result);
-    return result;
+  const jateDb = await openDB('jate', 1);
+  const tx = jateDb.transaction('jate', 'readonly');
+  const store = tx.objectStore('jate');
+  const request = store.getAll();
+  const result = await request;
+  console.log('result.value', result);
+  return result.value;
 }
 
 
